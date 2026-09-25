@@ -15,7 +15,6 @@ class GovernanceError(Exception):
 
 
 class Catalog:
-
     def __init__(self):
         self.assets = {}
         self.edges = {}
@@ -43,7 +42,6 @@ class Catalog:
 
 
 class Policy:
-
     def check(self, a, allowed):
         if a.classification not in allowed:
             raise GovernanceError("classification denied")
