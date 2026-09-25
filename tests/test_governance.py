@@ -1,6 +1,6 @@
-from governance import *
-
 import pytest
+
+from governance import *
 
 
 def test_lineage():
