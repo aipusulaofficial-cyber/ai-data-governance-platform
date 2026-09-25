@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 
 from service import app
-
 def test_request_and_correlation_ids_are_exposed():
     c = TestClient(app)
     r = c.get(
