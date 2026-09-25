@@ -1,5 +1,7 @@
 from governance import *
+
 import pytest
+
 
 
 def test_lineage():
@@ -10,9 +12,11 @@ def test_lineage():
     assert c.lineage("a") == {"a", "b", "c"}
 
 
+
 def test_owner():
     with pytest.raises(GovernanceError):
         Catalog().register(Asset("a", "", "public"))
+
 
 
 def test_policy():
