@@ -1,6 +1,6 @@
 import pytest
 
-from governance import *
+from governance import Asset, Catalog, GovernanceError, Policy
 
 
 def test_lineage():
