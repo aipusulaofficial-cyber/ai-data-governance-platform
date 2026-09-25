@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from opentelemetry import trace
 from pydantic import BaseModel
 
-from governance_domain import *
+from governance_domain import Asset, evaluate
 from observability import PrincipalObservabilityMiddleware
 
 try:
