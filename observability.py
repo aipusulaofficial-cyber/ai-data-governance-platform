@@ -5,7 +5,6 @@ import time
 import uuid
 
 from fastapi import Request
-
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
