@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from opentelemetry import trace
 from governance_domain import *
+
 try:
     from opentelemetry.sdk.resources import Resource
     from opentelemetry.sdk.trace import TracerProvider
@@ -21,24 +22,15 @@ class Request(BaseModel):
     key: str
     payload: dict = {}
 
-
 @app.get("/health/live")
-
-
 def live():
     return {"status": "ok"}
 
-
 @app.get("/health/ready")
-
-
 def ready():
     return {"status": "ready"}
 
-
 @app.post("/v1/governance")
-
-
 def handle(r: Request):
     with tracer.start_as_current_span("ai-data-governance-platform.domain"):
         try:
