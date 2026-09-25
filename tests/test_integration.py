@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
+
 from service import app
+
 
 
 def test_http_contract_and_domain():
