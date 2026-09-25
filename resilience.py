@@ -1,6 +1,7 @@
 """Dependency-free resilience primitives for service boundaries."""
 
 from __future__ import annotations
+
 import random
 import threading
 import time
@@ -40,6 +41,7 @@ class CircuitBreaker:
         self._failures = 0
         self._opened_at = 0.0
         self._lock = threading.Lock()
+
     @property
 
     def open(self) -> bool:
