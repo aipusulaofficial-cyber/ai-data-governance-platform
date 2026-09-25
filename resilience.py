@@ -7,6 +7,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 from dataclasses import dataclass
 from typing import Callable, Generic, TypeVar
+
 T = TypeVar("T")
 
 
@@ -19,7 +20,6 @@ class OperationTimeoutError(TimeoutError):
 
 
 @dataclass(frozen=True)
-
 class RetryPolicy:
     attempts: int = 3
     base_delay: float = 0.05
