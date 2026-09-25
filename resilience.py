@@ -43,7 +43,6 @@ class CircuitBreaker:
         self._lock = threading.Lock()
 
     @property
-
     def open(self) -> bool:
         with self._lock:
             return (
