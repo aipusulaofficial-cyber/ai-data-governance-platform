@@ -1,4 +1,4 @@
-from governance_domain import *
+from governance_domain import Asset, evaluate
 
 
 def test_policy():
