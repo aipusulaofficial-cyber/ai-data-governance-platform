@@ -3,6 +3,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 from opentelemetry import trace
 from pydantic import BaseModel
+
 from governance_domain import *
 
 try:
