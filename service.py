@@ -7,6 +7,7 @@ try:
     from opentelemetry.sdk.resources import Resource
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+
     p = TracerProvider(
         resource=Resource.create({"service.name": "ai-data-governance-platform"})
     )
