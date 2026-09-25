@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 
 
 @dataclass
+
+
 class Asset:
     id: str
     owner: str
@@ -10,6 +12,8 @@ class Asset:
 
 
 @dataclass(frozen=True)
+
+
 class PolicyDecision:
     allowed: bool
     reasons: tuple[str, ...]
