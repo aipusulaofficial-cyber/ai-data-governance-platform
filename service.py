@@ -5,6 +5,7 @@ from opentelemetry import trace
 from pydantic import BaseModel
 
 from governance_domain import *
+from observability import PrincipalObservabilityMiddleware
 
 try:
     from opentelemetry.sdk.resources import Resource
@@ -20,6 +21,7 @@ except (ImportError, RuntimeError) as exc:
     logging.getLogger(__name__).warning("OpenTelemetry setup failed: %s", exc)
 
 app = FastAPI(title="ai-data-governance-platform", version="1.0.0")
+app.add_middleware(PrincipalObservabilityMiddleware)
 tracer = trace.get_tracer("ai-data-governance-platform")
 
 
