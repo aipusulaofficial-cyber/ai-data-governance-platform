@@ -3,7 +3,6 @@ from governance import *
 import pytest
 
 
-
 def test_lineage():
     c = Catalog()
     [c.register(Asset(x, "team", "internal")) for x in "abc"]
