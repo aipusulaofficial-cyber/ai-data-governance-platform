@@ -1,8 +1,12 @@
-import json, logging, os
+import json
+import logging
+import os
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+
+
 def configure_observability():
     provider = TracerProvider(
         resource=Resource.create(
@@ -27,7 +31,10 @@ def configure_observability():
     else:
         provider.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))
     trace.set_tracer_provider(provider)
+
+
 class JsonFormatter(logging.Formatter):
+
     def format(self, record):
         return json.dumps(
             {
@@ -36,6 +43,8 @@ class JsonFormatter(logging.Formatter):
                 "logger": record.name,
             }
         )
+
+
 def get_logger(name):
     h = logging.StreamHandler()
     h.setFormatter(JsonFormatter())
