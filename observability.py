@@ -21,6 +21,7 @@ def configure_observability():
             from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
                 OTLPSpanExporter,
             )
+
             provider.add_span_processor(
                 BatchSpanProcessor(
                     OTLPSpanExporter(endpoint=os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"])
@@ -34,7 +35,6 @@ def configure_observability():
 
 
 class JsonFormatter(logging.Formatter):
-
     def format(self, record):
         return json.dumps(
             {
