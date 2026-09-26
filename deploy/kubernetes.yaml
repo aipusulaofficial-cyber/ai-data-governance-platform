@@ -1,15 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: {name: ai-data-governance-platform}
+metadata:
+  name: ai-data-governance-platform
 spec:
- replicas: 2
- selector: {matchLabels: {app: ai-data-governance-platform}}
- template:
-  metadata: {labels: {app: ai-data-governance-platform}}
-  spec:
-   containers:
-   - name: api
-     image: ai-data-governance-platform:latest
-     ports: [{containerPort: 8000}]
-     readinessProbe: {httpGet: {path: /health/ready, port: 8000}}
-     livenessProbe: {httpGet: {path: /health/live, port: 8000}}
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-data-governance-platform
+  template:
+    metadata:
+      labels:
+        app: ai-data-governance-platform
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: api
+          image: ai-data-governance-platform:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
