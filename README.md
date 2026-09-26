@@ -1,29 +1,37 @@
 # AI Data Governance Platform
 
-**Principal-level reference implementation** focused on data contracts, lineage-oriented boundaries, validation, policy enforcement, and controlled access.
+A governance service for defining, validating and auditing how AI workloads access and use data.
 
-## Engineering intent
-- Clear domain boundaries and replaceable infrastructure adapters
-- Explicit contracts, validation, and failure semantics
-- Deterministic tests with external dependencies isolated
-- Operational readiness through health checks, CI, and security validation
-- Architecture decisions documented so trade-offs are reviewable
+## What this project does
+The platform places governance decisions at explicit boundaries: incoming data is validated, policy is evaluated, lineage-oriented metadata is retained, and access decisions remain auditable.
 
-## System design
-The repository is structured around explicit responsibilities rather than framework-driven coupling. Domain policy, orchestration, infrastructure adapters, and operational concerns remain separable so components can evolve independently.
+## Architecture
+```text
+Data / access request
+        |
+        v
+Contract + validation
+        |
+        v
+Governance policy
+     /       \
+  allow      deny
+    |          |
+adapter      audit
+    |
+result + lineage metadata
+```
 
-## Quality bar
-- **Correctness:** contract, edge-case, and failure-path tests
-- **Reliability:** bounded work, explicit failure behavior, and health signals where applicable
-- **Security:** least-privilege boundaries, input validation, and safe defaults
-- **Observability:** correlation/context propagation and actionable operational signals
-- **Delivery:** reproducible CI validation before changes are considered complete
+Domain policy is separated from infrastructure adapters so storage or provider changes do not redefine governance rules.
 
-## Principal engineering contract
-See [docs/PRINCIPAL-ENGINEERING.md](docs/PRINCIPAL-ENGINEERING.md) for the reviewable engineering contract, NFRs, and change-safety checklist.
+## Contracts & auditability
+Contracts define accepted data and access-request shapes. Validation rejects invalid input before policy evaluation. Decisions retain context needed to explain authorization outcomes and associated lineage.
 
-## Architecture & decisions
-See [ARCHITECTURE.md](ARCHITECTURE.md) and the ADRs directory for system boundaries, key trade-offs, and extension points.
+## Reliability & security
+Failure paths are explicit, external dependencies are isolated in tests, and security controls are validated in CI. Operational failures are distinguishable from legitimate governance denials.
 
-## Engineering principle
-The goal is to make important behavior **explicit, testable, observable, auditable, and replaceable** without adding complexity that does not buy a measurable engineering property.
+## Delivery evidence
+CI, production tests and security/SBOM checks are executable gates. Architecture and trade-offs are documented in [ARCHITECTURE.md](ARCHITECTURE.md) and [ADRs](ADRs/).
+
+## Engineering standard
+**Code → Contract → Test → Security → Runtime → Observability → Deployment → Evidence**.
