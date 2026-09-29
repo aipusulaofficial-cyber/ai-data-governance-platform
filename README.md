@@ -35,3 +35,6 @@ CI, production tests and security/SBOM checks are executable gates. Architecture
 
 ## Engineering standard
 **Code → Contract → Test → Security → Runtime → Observability → Deployment → Evidence**.
+
+## Portfolio evidence
+[Portfolio evidence map](docs/PORTFOLIO_EVIDENCE.md) — executable proof, architecture mapping and reviewable CI evidence.
