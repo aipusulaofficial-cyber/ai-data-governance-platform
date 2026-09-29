@@ -20,6 +20,8 @@ def evaluate(asset: Asset, required_classification: str, actor: str) -> PolicyDe
     if not asset.owner or actor != asset.owner:
         reasons.append("owner_mismatch")
     order = {"public": 0, "internal": 1, "confidential": 2, "restricted": 3}
-    if order.get(asset.classification, 99) > order.get(required_classification, 99):
+    if asset.classification not in order or required_classification not in order:
+        reasons.append("unknown_classification")
+    elif order[asset.classification] > order[required_classification]:
         reasons.append("classification_exceeds_request")
     return PolicyDecision(not reasons, tuple(reasons))
