@@ -1,5 +1,10 @@
 # AI Data Governance Platform
 
+[![CI](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/ci.yml)
+[![Production Tests](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/production-tests.yml/badge.svg?branch=main)](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/production-tests.yml)
+[![Security / SBOM](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/security-sbom.yml/badge.svg?branch=main)](https://github.com/aipusulaofficial-cyber/ai-data-governance-platform/actions/workflows/security-sbom.yml)
+
+
 A governance service for defining, validating and auditing how AI workloads access and use data.
 
 ## What this project does
