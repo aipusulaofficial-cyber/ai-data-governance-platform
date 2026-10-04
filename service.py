@@ -28,6 +28,18 @@ class Request(BaseModel):
     payload: dict = Field(default_factory=dict)
 
 
+def _validated_tags(payload: dict) -> set[str]:
+    raw = payload.get("tags", [])
+    if not isinstance(raw, list):
+        raise ValueError("tags must be a list")
+    tags: set[str] = set()
+    for item in raw:
+        if not isinstance(item, str) or not item.strip():
+            raise ValueError("tags must contain non-empty strings")
+        tags.add(item.strip())
+    return tags
+
+
 @app.get("/health/live")
 def live():
     return {"status": "ok"}
@@ -46,7 +58,7 @@ def handle(r: Request):
                 r.key,
                 r.payload.get("owner", ""),
                 r.payload.get("classification", "internal"),
-                set(r.payload.get("tags", [])),
+                _validated_tags(r.payload),
             )
             d = evaluate(
                 a,
@@ -54,5 +66,5 @@ def handle(r: Request):
                 r.payload.get("actor", ""),
             )
             return {"allowed": d.allowed, "reasons": d.reasons}
-        except (ValueError, KeyError, RuntimeError) as e:
+        except (ValueError, KeyError, TypeError, RuntimeError) as e:
             raise HTTPException(status_code=400, detail=str(e)) from e
