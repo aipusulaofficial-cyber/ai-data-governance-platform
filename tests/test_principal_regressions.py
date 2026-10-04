@@ -15,6 +15,7 @@ def test_known_classification_owner_allowed():
 
 def test_malformed_tags_are_rejected_before_policy_evaluation():
     import pytest
+
     from service import _validated_tags
     with pytest.raises(ValueError):
         _validated_tags({"tags": "admin"})
