@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI, HTTPException
 from opentelemetry import trace
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from governance_domain import Asset, evaluate
 from observability import PrincipalObservabilityMiddleware
@@ -25,7 +25,7 @@ tracer = trace.get_tracer("ai-data-governance-platform")
 
 class Request(BaseModel):
     key: str
-    payload: dict = {}
+    payload: dict = Field(default_factory=dict)
 
 
 @app.get("/health/live")
