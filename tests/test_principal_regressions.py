@@ -11,3 +11,12 @@ def test_unknown_classification_fails_closed():
 def test_known_classification_owner_allowed():
     asset = Asset("a1", "owner", "internal")
     assert evaluate(asset, "confidential", "owner").allowed
+
+
+def test_malformed_tags_are_rejected_before_policy_evaluation():
+    import pytest
+    from service import _validated_tags
+    with pytest.raises(ValueError):
+        _validated_tags({"tags": "admin"})
+    with pytest.raises(ValueError):
+        _validated_tags({"tags": ["ok", 7]})
